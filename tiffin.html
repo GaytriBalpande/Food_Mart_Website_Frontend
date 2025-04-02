@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id="tiffinTitle">Ghar Ka Tiffin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-white text-gray-800">
+    <div class="max-w-4xl mx-auto p-4">
+        <div class="text-center border-b pb-4">
+            <h1 id="tiffinName" class="text-2xl font-bold">Ghar Ka Tiffin</h1>
+            <p class="text-sm text-gray-600">4.4★</p>
+        </div>
+        <div class="flex justify-between items-center py-2 border-b">
+            <span class="text-green-800 font-bold">Free delivery if you order tiffin daily for 30 days</span>
+            <span class="text-gray-600">5 Offers <i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="py-4">
+            <div class="py-2 border-b">
+                <h2 class="font-bold">Monday</h2>
+                <p><strong>Breakfast:</strong> Poha with Chutney + Tea</p>
+                <p><strong>Lunch:</strong> Roti, Mix Veg Sabzi, Dal Fry, Rice, Salad</p>
+                <p><strong>Dinner:</strong> Aloo Paratha with Curd and Pickle</p>
+                <p class="text-right font-bold">150 rs.</p>
+            </div>
+            <div class="py-2 border-b">
+                <h2 class="font-bold">Tuesday</h2>
+                <p><strong>Breakfast:</strong> Upma with Coconut Chutney + Filter Coffee</p>
+                <p><strong>Lunch:</strong> Roti, Bhindi Masala, Chana Dal, Rice, Cucumber Salad</p>
+                <p><strong>Dinner:</strong> Jeera Rice, Rajma, Papad</p>
+                <p class="text-right font-bold">150 rs.</p>
+            </div>
+            <div class="py-2 border-b">
+                <h2 class="font-bold">Wednesday</h2>
+                <p><strong>Breakfast:</strong> Idli with Sambar and Chutney + Tea</p>
+                <p><strong>Lunch:</strong> Roti, Aloo Gobi, Moong Dal, Rice, Kachumber Salad</p>
+                <p><strong>Dinner:</strong> Vegetable Pulao with Raita</p>
+                <p class="text-right font-bold">150 rs.</p>
+            </div>
+            <div class="py-2 border-b">
+                <h2 class="font-bold">Thursday</h2>
+                <p><strong>Breakfast:</strong> Dhokla with Green Chutney + Masala Tea</p>
+                <p><strong>Lunch:</strong> Roti, Palak Paneer, Masoor Dal, Rice, Onion Salad</p>
+                <p><strong>Dinner:</strong> Veg Fried Rice with Manchurian</p>
+                <p class="text-right font-bold">150 rs.</p>
+            </div>
+            <div class="py-2 border-b">
+                <h2 class="font-bold">Friday</h2>
+                <p><strong>Breakfast:</strong> Paratha with Butter and Pickle + Tea</p>
+                <p><strong>Lunch:</strong> Roti, Baingan Bharta, Dal Tadka, Rice, Sprouts Salad</p>
+                <p><strong>Dinner:</strong> Khichdi with Curd and Papad</p>
+                <p class="text-right font-bold">150 rs.</p>
+            </div>
+            <div class="py-2 border-b">
+                <h2 class="font-bold">Saturday</h2>
+                <p><strong>Breakfast:</strong> Masala Dosa with Sambar and Chutney + Filter Coffee</p>
+                <p><strong>Lunch:</strong> Roti, Matar Paneer, Chole, Rice, Green Salad</p>
+                <p><strong>Dinner:</strong> Veg Biryani with Raita and Pickle</p>
+                <p class="text-right font-bold">150 rs.</p>
+            </div>
+            <div class="py-2">
+                <h2 class="font-bold">Sunday</h2>
+                <p><strong>Breakfast:</strong> Aloo Poori with Pickle + Lassi</p>
+                <p><strong>Lunch:</strong> Roti, Mixed Vegetable Curry, Toor Dal, Rice, Salad</p>
+                <p><strong>Dinner:</strong> Paneer Butter Masala with Naan</p>
+                <p class="text-right font-bold">150 rs.</p>
+                <hr>
+            </div>
+        </div>
+        <div class="flex justify-between items-center py-4">
+            <button class="bg-green-800 text-white py-2 px-4 rounded">ADD +</button>
+            <button class="bg-green-800 text-white py-2 px-4 rounded">Order Now</button>
+            <button class="bg-green-800 text-white py-2 px-4 rounded flex items-center">
+                <i class="fas fa-utensils"></i> Menu
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const regex = /([^&=]+)=([^&]*)/g;
+            let m;
+            while (m = regex.exec(queryString)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+            return params;
+        }
+
+        // Update the Tiffin Center name based on the query parameter
+        const params = getQueryParams();
+        const tiffinName = params.name || "Ghar Ka Tiffin"; // Default name if not found
+        document.getElementById('tiffinName').textContent = tiffinName;
+        document.title = tiffinName; // Update the title of the page
+    </script>
+</body>
+</html>

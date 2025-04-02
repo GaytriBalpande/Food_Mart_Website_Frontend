@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Feast Restaurant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-white text-black">
+    <div class="max-w-4xl mx-auto p-4">
+        <!-- Header -->
+        <div class="flex justify-between items-center border-b pb-2 mb-4">
+            <h1 class="text-2xl font-bold" id="restaurant-name">
+                The Royal Feast Restaurant
+            </h1>
+            <div class="bg-green-700 text-white px-2 py-1 rounded">
+                4.4 ★
+            </div>
+        </div>
+        <!-- Free delivery notice -->
+        <div class="text-center text-sm mb-4">
+            Free delivery above ₹199
+        </div>
+        <!-- Filters and Offers -->
+        <div class="flex justify-between items-center border-b pb-2 mb-4">
+            <div class="flex space-x-2">
+                <button class="flex items-center border px-4 py-2 rounded">
+                    <i class="fas fa-filter mr-2"></i>
+                    Filter
+                </button>
+                <button class="flex items-center border px-4 py-2 rounded">
+                    <i class="fas fa-medal mr-2"></i>
+                    Bestseller
+                </button>
+                <button class="flex items-center border px-4 py-2 rounded">
+                    <i class="fas fa-star mr-2"></i>
+                    Rated 4+
+                </button>
+            </div>
+            <div>
+                5 Offers
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+        <!-- Menu Items -->
+        <div class="space-y-4" id="menu-items">
+            <!-- Menu items will be dynamically inserted here -->
+        </div>
+        <!-- Search and Menu -->
+        <div class="flex justify-between items-center mt-4">
+            <div class="flex items-center border px-4 py-2 rounded w-full">
+                <i class="fas fa-search mr-2"></i>
+                <input class="w-full outline-none" placeholder="Search in Restaurants" type="text" />
+            </div>
+            <button class="bg-green-700 text-white px-4 py-2 rounded ml-4 flex items-center">
+                <i class="fas fa-utensils mr-2"></i>
+                Menu
+            </button>
+        </div>
+        <!-- Customer Reviews -->
+        <div class="mt-8">
+            <h2 class="text-xl font-bold mb-2">Customer Reviews</h2>
+            <div class="border p-4 rounded">
+                <p class="font-semibold">John Doe</p>
+                <p class="text-sm">"The Butter Paneer Masala was absolutely delicious! Highly recommend!"</p>
+            </div>
+            <div class="border p-4 rounded mt-2">
+                <p class="font-semibold">Jane Smith</p>
+                <p class="text-sm">"Great service and the Masala Dosa was crispy and flavorful!"</p>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-sm">
+            <p>Contact us: 123-456-7890 | Email: info@theroyalfeast.com</p>
+        </footer>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get the restaurant name from the URL
+        const restaurantName = getUrlParameter('name');
+        document.getElementById('restaurant-name').innerText = restaurantName;
+
+        // Sample menu items data
+        const menuItems = [
+            {
+                name: "Butter Paneer Masala",
+                price: "199",
+                description: "Butter Paneer Masala is a rich, creamy, and flavorful North Indian curry made with paneer, butter, tomatoes, and aromatic spices.",
+                image: "https://storage.googleapis.com/a1aa/image/EwKmNgbUeI2EGEr_2w4A7Dj9ql_ryGBW9CrkoUHquJg.jpg",
+                rating: 4.5
+            },
+            {
+                name: "Masala Dosa",
+                price: "110",
+                description: "Masala Dosa is a crispy, golden South Indian crepe made from fermented rice and lentil batter, filled with spiced potato masala.",
+                image: "https://storage.googleapis.com/a1aa/image/uyaApBgfsxKB3h7R-ku5-TIWLXGbceuZKW39W-0OXq0.jpg",
+                rating: 4.0
+            }
+        ];
+
+        // Function to display menu items
+        function displayMenuItems() {
+            const menuContainer = document.getElementById('menu-items');
+            menuItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "flex justify-between items-center border-b pb-4";
+                itemDiv.innerHTML = `
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold">${item.name}</h2>
+                        <div class="flex items-center text-yellow-500">
+                            ${Array(Math.floor(item.rating)).fill('<i class="fas fa-star"></i>').join('')}
+                            ${item.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                            ${Array(5 - Math.ceil(item.rating)).fill('<i class="far fa-star"></i>').join('')}
+                        </div>
+                        <div class="text-lg font-bold mt-2">₹${item.price}</div>
+                        <p class="text-sm mt-2">${item.description}</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <img alt="${item.name}" class="w-24 h-24 rounded" src="${item.image}" />
+                        <button class="bg-green-700 text-white px-4 py-2 rounded">ADD +</button>
+                    </div>
+                `;
+                menuContainer.appendChild(itemDiv);
+            });
+        }
+
+        // Call the function to display menu items
+        displayMenuItems();
+    </script>
+</body>
+
+</html>
