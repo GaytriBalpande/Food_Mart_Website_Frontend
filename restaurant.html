@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Royal Feast Restaurant</title>
+    <title>Restaurant</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 </head>
@@ -49,6 +49,17 @@
         <div class="space-y-4" id="menu-items">
             <!-- Menu items will be dynamically inserted here -->
         </div>
+        <!-- Cart -->
+        <div class="mt-4">
+            <h2 class="text-xl font-bold mb-2">Cart (<span id="cart-count">0</span>)</h2>
+            <div id="cart-items" class="border p-4 rounded">
+                <!-- Cart items will be displayed here -->
+            </div>
+            <div class="mt-2">
+                <strong>Total: ₹<span id="total-amount">0</span></strong>
+            </div>
+            <button id="buy-now" class="bg-green-700 text-white px-4 py-2 rounded mt-2" onclick="buyNow()">Buy Now</button>
+        </div>
         <!-- Search and Menu -->
         <div class="flex justify-between items-center mt-4">
             <div class="flex items-center border px-4 py-2 rounded w-full">
@@ -76,7 +87,7 @@
         <footer class="mt-8 text-center text-sm">
             <p>Contact us: 123-456-7890 | Email: info@theroyalfeast.com</p>
         </footer>
-    </div>
+    </ </div>
     <script>
         // Function to get URL parameters
         function getUrlParameter(name) {
@@ -94,19 +105,21 @@
         const menuItems = [
             {
                 name: "Butter Paneer Masala",
-                price: "199",
+                price: 199,
                 description: "Butter Paneer Masala is a rich, creamy, and flavorful North Indian curry made with paneer, butter, tomatoes, and aromatic spices.",
                 image: "https://storage.googleapis.com/a1aa/image/EwKmNgbUeI2EGEr_2w4A7Dj9ql_ryGBW9CrkoUHquJg.jpg",
                 rating: 4.5
             },
             {
                 name: "Masala Dosa",
-                price: "110",
+                price: 110,
                 description: "Masala Dosa is a crispy, golden South Indian crepe made from fermented rice and lentil batter, filled with spiced potato masala.",
                 image: "https://storage.googleapis.com/a1aa/image/uyaApBgfsxKB3h7R-ku5-TIWLXGbceuZKW39W-0OXq0.jpg",
                 rating: 4.0
             }
         ];
+
+        let cart = [];
 
         // Function to display menu items
         function displayMenuItems() {
@@ -127,11 +140,48 @@
             </div>
             <div class="flex items-center space-x-4">
                 <img alt="${item.name}" class="w-24 h-24 rounded" src="${item.image}" />
-                <button class="bg-green-700 text-white px-4 py-2 rounded">ADD +</button>
+                <button class="bg-green-700 text-white px-4 py-2 rounded" onclick="addToCart('${item.name}', ${item.price})">ADD +</button>
             </div>
         `;
                 menuContainer.appendChild(itemDiv);
             });
+        }
+
+        // Function to add item to cart
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        // Function to update cart display
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalAmount = document.getElementById('total-amount');
+            cartCount.innerText = cart.length;
+            totalAmount.innerText = cart.reduce((total, item) => total + item.price, 0);
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center border-b pb-2">
+                    <span>${item.name} - ₹${item.price}</span>
+                    <button class="text-red-500" onclick="removeFromCart(${index})">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        // Function to remove item from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Function to handle Buy Now action
+        function buyNow() {
+            if (cart.length > 0) {
+                alert(`Total amount to pay: ₹${cart.reduce((total, item) => total + item.price, 0)}`);
+                // Here you can add further functionality for payment processing
+            } else {
+                alert("Your cart is empty!");
+            }
         }
 
         // Call the function to display menu items
